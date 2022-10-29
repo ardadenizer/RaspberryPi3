@@ -1,0 +1,28 @@
+#!/bin/bash
+
+GPIO_PATH=/sys/class/gpio/gpio2
+TRUE=1
+FALSE=0
+
+echo 2 > ..$GPIO_PATH/export
+
+if ($? == $FALSE)
+then
+	echo "GPIO 2 exported successfully"
+else 	
+	echo "Could not export GPIO 2"
+
+fi
+
+
+echo out > $GPIO_PATH/direction
+
+while :
+do
+	echo 0 > $GPIO_PATH/value
+	sleep 0.5
+	echo 1 > $GPIO_PATH/value
+	sleep 0.5
+	echo 0 > $GPIO_PATH/value
+	
+done
